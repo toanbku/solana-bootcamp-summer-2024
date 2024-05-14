@@ -3,14 +3,22 @@
  */
 
 import { Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
-import { MINT_SIZE, TOKEN_PROGRAM_ID, createInitializeMint2Instruction } from "@solana/spl-token";
+import {
+  MINT_SIZE,
+  TOKEN_PROGRAM_ID,
+  createAssociatedTokenAccountInstruction,
+  createInitializeMint2Instruction,
+  createMintToInstruction,
+  getAssociatedTokenAddressSync,
+  getOrCreateAssociatedTokenAccount,
+} from "@solana/spl-token";
 
 import {
   PROGRAM_ID as METADATA_PROGRAM_ID,
   createCreateMetadataAccountV3Instruction,
 } from "@metaplex-foundation/mpl-token-metadata";
 
-import { payer, testWallet, connection } from "@/lib/vars";
+import { payer, testWallet, connection, STATIC_PUBLICKEY } from "@/lib/vars";
 
 import {
   buildTransaction,
@@ -34,11 +42,11 @@ import {
     // define how many decimals we want our tokens to have
     decimals: 6,
     //
-    name: "Solana Bootcamp Summer 2024",
+    name: "Toan Ho",
     //
-    symbol: "SBS",
+    symbol: "THQ",
     //
-    uri: "https://raw.githubusercontent.com/toanbku/solana-bootcamp-summer-2024/main/assets/sbs-token.json",
+    uri: "https://raw.githubusercontent.com/toanbku/solana-bootcamp-summer-2024/main/assets/thq-token.json",
   };
 
   /**
@@ -137,6 +145,52 @@ import {
   );
 
   /**
+   * Mint 100 token for myself
+   */
+
+  const associatedToken = getAssociatedTokenAddressSync(mintKeypair.publicKey, payer.publicKey);
+  const ataInstruction = createAssociatedTokenAccountInstruction(
+    payer.publicKey,
+    associatedToken,
+    payer.publicKey,
+    mintKeypair.publicKey,
+    TOKEN_PROGRAM_ID,
+  );
+
+  const mintToInstruction = createMintToInstruction(
+    mintKeypair.publicKey,
+    associatedToken,
+    payer.publicKey,
+    100_000_000,
+    [],
+    TOKEN_PROGRAM_ID,
+  );
+
+  /**
+   * Mint 10 token for STATIC WALLET
+   */
+
+  const staticAssociatedToken = getAssociatedTokenAddressSync(
+    mintKeypair.publicKey,
+    STATIC_PUBLICKEY,
+  );
+  const staticAtaInstruction = createAssociatedTokenAccountInstruction(
+    payer.publicKey,
+    staticAssociatedToken,
+    STATIC_PUBLICKEY,
+    mintKeypair.publicKey,
+  );
+
+  const mintToStaticInstruction = createMintToInstruction(
+    mintKeypair.publicKey,
+    staticAssociatedToken,
+    payer.publicKey,
+    10_000_000,
+    [],
+    TOKEN_PROGRAM_ID,
+  );
+
+  /**
    * Build the transaction to send to the blockchain
    */
 
@@ -148,6 +202,10 @@ import {
       createMintAccountInstruction,
       initializeMintInstruction,
       createMetadataInstruction,
+      ataInstruction,
+      mintToInstruction,
+      staticAtaInstruction,
+      mintToStaticInstruction,
     ],
   });
 

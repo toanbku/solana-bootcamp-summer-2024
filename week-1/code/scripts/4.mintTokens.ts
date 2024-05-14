@@ -9,7 +9,6 @@ import { payer, connection } from "@/lib/vars";
 import { explorerURL, loadPublicKeysFromFile } from "@/lib/helpers";
 
 (async () => {
-
   console.log("Payer address:", payer.publicKey.toBase58());
 
   // load the stored PublicKeys for ease of use
@@ -66,7 +65,7 @@ import { explorerURL, loadPublicKeysFromFile } from "@/lib/helpers";
    * - if decimals=6, amount=100_000 => actual tokens minted == 0.10
    */
 
-  const amountOfTokensToMint = 1_000_000; // 1 * 10**6
+  const amountOfTokensToMint = 1000_000_000; // 1 * 10**6
 
   // mint some token to the "ata"
   console.log("Minting some tokens to the ata...");

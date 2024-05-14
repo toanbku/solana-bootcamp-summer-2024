@@ -18,7 +18,6 @@ import {
 } from "@/lib/helpers";
 
 (async () => {
-
   console.log("Payer address:", payer.publicKey.toBase58());
 
   // load the stored PublicKeys for ease of use
@@ -37,11 +36,11 @@ import {
   // define the new token config settings
   const tokenConfig = {
     // new name
-    name: "New Solana Bootcamp Summer 2024",
+    name: "An Huong",
     // new symbol
     symbol: "SBS",
     // new uri
-    uri: "https://raw.githubusercontent.com/trankhacvy/solana-bootcamp-summer-2024/main/assets/sbs-token.json",
+    uri: "https://raw.githubusercontent.com/toanbku/solana-bootcamp-summer-2024/main/assets/sbs-token.json",
   };
 
   /**

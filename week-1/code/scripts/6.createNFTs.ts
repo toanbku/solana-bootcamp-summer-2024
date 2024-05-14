@@ -18,7 +18,8 @@ import { explorerURL, printConsoleSeparator } from "@/lib/helpers";
     name: "Solana Bootcamp Summer 2024",
     symbol: "SBS",
     description: "Solana Bootcamp Summer 2024",
-    image: "https://github.com/trankhacvy/solana-bootcamp-summer-2024/blob/main/assets/logo.png?raw=true",
+    image:
+      "https://github.com/trankhacvy/solana-bootcamp-summer-2024/blob/main/assets/logo.png?raw=true",
   };
 
   /**
@@ -59,7 +60,7 @@ import { explorerURL, printConsoleSeparator } from "@/lib/helpers";
     useNewMint: tokenMint,
 
     // `sellerFeeBasisPoints` is the royalty that you can define on nft
-    sellerFeeBasisPoints: 500, // Represents 5.00%.
+    sellerFeeBasisPoints: 1000, // Represents 5.00%.
 
     //
     isMutable: true,
